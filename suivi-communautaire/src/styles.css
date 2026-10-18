@@ -1,0 +1,135 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Polices auto-hébergées (SIL OFL) : aucune requête vers un service tiers. */
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url("/fonts/figtree-latin-wght-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "EB Garamond";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/eb-garamond-latin-400-normal.woff2") format("woff2");
+}
+@font-face {
+  font-family: "EB Garamond";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/eb-garamond-latin-400-italic.woff2") format("woff2");
+}
+
+@theme inline {
+  --font-sans: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "EB Garamond", Georgia, "Times New Roman", serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+  --color-lavender: var(--lavender);
+  --color-pink: var(--pink);
+  --color-amber: var(--amber);
+  --color-coral: var(--coral);
+  --color-forest: var(--forest);
+  --color-sand: var(--sand);
+}
+
+/* Identité : crème chaud, encre, bordures franches de 2 px, accents pastel.
+   Les noms shadcn pointent vers cette palette. */
+:root {
+  --radius: 0.75rem;
+  --ink: #1a1a1a;
+  --cream: #ffffeb;
+  --lavender: #f0d7ff;
+  --pink: #ffbcf2;
+  --amber: #ffa946;
+  --coral: #ff6c4c;
+  --forest: #034f46;
+  --sand: #e4e4d0;
+
+  --background: var(--cream);
+  --foreground: var(--ink);
+  --card: #fffdf9;
+  --card-foreground: var(--ink);
+  --popover: #fffdf9;
+  --popover-foreground: var(--ink);
+  --primary: var(--lavender);
+  --primary-foreground: var(--ink);
+  --secondary: var(--sand);
+  --secondary-foreground: var(--ink);
+  --muted: #f3f3dc;
+  --muted-foreground: #5c5c58;
+  --accent: #f6ebff;
+  --accent-foreground: var(--ink);
+  --destructive: #c20024;
+  --border: #d1d1c1;
+  --input: var(--ink);
+  --ring: var(--forest);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-padding-top: 6rem;
+  }
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+  }
+  ::selection {
+    background: var(--lavender);
+    color: var(--ink);
+  }
+  [hidden] {
+    display: none !important;
+  }
+  /* Titres : EB Garamond, grands, interlettrage serré. */
+  h1,
+  h2 {
+    @apply font-serif font-normal tracking-tight text-balance;
+  }
+}
+
+/* Contrat de confidentialité : app.js masque ces éléments pendant la
+   vérification d’accès (voir README, « Dossiers déjà ouverts »). */
+.checking [data-case-id],
+.checking [data-requires-supervisor],
+.checking [data-private-count] {
+  visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}

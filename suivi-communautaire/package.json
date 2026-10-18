@@ -6,14 +6,17 @@
     "test": "tests"
   },
   "scripts": {
-    "dev": "cf dev",
-    "build": "cf build && tsc --noEmit",
+    "dev": "npm run css && (npm run css:watch & cf dev)",
+    "build": "npm run css && cf build && tsc --noEmit",
     "typecheck": "cf workers types && tsc --noEmit",
     "test": "vitest run",
     "db:migrate": "cf d1 migrations apply 7e246701-f720-4ed4-9a21-3b5811778d30 --local --persist-to .cloudflare/state --dir migrations",
     "setup": "node scripts/setup.mjs",
     "demo": "node scripts/provision.mjs",
-    "test:browser": "playwright test"
+    "test:browser": "playwright test",
+    "reconcile": "node scripts/reconcile.mjs",
+    "css": "tailwindcss -i src/styles.css -o public/styles.css --minify",
+    "css:watch": "tailwindcss -i src/styles.css -o public/styles.css --watch"
   },
   "keywords": [],
   "author": "",
@@ -21,15 +24,23 @@
   "type": "module",
   "dependencies": {
     "better-auth": "1.7.10",
-    "hono": "4.13.13"
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "hono": "4.13.13",
+    "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "2.0.0-beta.v.1",
     "@cloudflare/vitest-plugin": "1.4.4",
     "@cloudflare/workers-types": "5.20261018.1",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource/eb-garamond": "^5.3.0",
     "@playwright/test": "1.64.1",
+    "@tailwindcss/cli": "^4.3.3",
     "@types/node": "26.6.5",
     "cf": "1.0.0-beta.18",
+    "tailwindcss": "^4.3.3",
+    "tw-animate-css": "^1.4.0",
     "typescript": "7.0.2",
     "vite": "8.3.4",
     "vitest": "4.1.11"
