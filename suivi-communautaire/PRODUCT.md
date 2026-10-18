@@ -24,7 +24,7 @@ Un intervenant voit ses dossiers. Un superviseur voit tous les dossiers de son o
 
 ## Capabilities and Constraints
 
-Premier parcours : connexion, création d'un usager et de son dossier, recherche, fiche, transfert, audit. Personne et dossier sont distincts. Les notes et l'IA viennent plus tard. Français; interface ordinateur et téléphone. Pas de données réelles ni de déploiement dans cette première livraison locale. Gestion des comptes par outil contrôlé, pas d'inscription publique.
+Parcours : connexion, ouverture du dossier d'une nouvelle personne, recherche, fiche, transfert, audit. Un dossier de suivi unique par personne enregistrée; les interactions sont consignées en notes (avec suivis) et en documents remplis à partir de modèles que les superviseurs définissent. L'IA, les pièces jointes et le portail usager viennent plus tard. Français; interface ordinateur et téléphone. Pas de données réelles ni de déploiement dans cette première livraison locale. Gestion des comptes par outil contrôlé, pas d'inscription publique.
 
 ## Evidence on Hand
 

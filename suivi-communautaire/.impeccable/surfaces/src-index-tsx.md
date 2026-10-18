@@ -17,7 +17,7 @@ OWN-WORLD: La cinquième direction ancrée dans l'accueil communautaire emprunte
 
 STORY: L'intervenant consulte ses dossiers, en crée un ou organise un relais. Le superviseur voit le périmètre de l'organisme. Chaque écran rappelle le rôle; le formulaire de transfert explicite sa conséquence.
 
-FIRST VIEWPORT: Rail de navigation vert profond à gauche, en-tête avec identité à droite, titre et bouton Nouveau dossier, recherche puis liste structurée par usager, service et responsable. Sur téléphone, le rail devient un en-tête compact; les dossiers deviennent des lignes empilées. Le détail privilégie l'identité puis les coordonnées et le responsable.
+FIRST VIEWPORT: Rail de navigation vert profond à gauche, en-tête avec identité à droite, titre et bouton Nouveau dossier, recherche puis liste structurée par usager et responsable. Sur téléphone, le rail devient un en-tête compact; les dossiers deviennent des lignes empilées. La fiche privilégie l'identité, les coordonnées et le responsable, puis deux sections indépendantes et paginées : Notes (action principale Ajouter une note) et Documents (action secondaire Ajouter un document). Aucune action « autre dossier pour cet usager ».
 
 FORM: Direction 5, accueil communautaire; seed 9e05c512. Signature : un relais lisible entre responsable actuel et destinataire dans un formulaire dédié, suivi d'une confirmation sobre. Les challengers apportent la séparation des actions à conséquence, la densité maîtrisée et la continuité d'identité; leurs motifs de console, affiche, catalogue ou botanique ne servent pas les tâches.
 

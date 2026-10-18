@@ -1,0 +1,42 @@
+/* Styles des écrans notes, documents et modèles (src/views-content.tsx).
+   Écrits pour l'ancien public/styles.css; remplacés par la refonte Tailwind. À reporter dans src/styles.css
+   (ou à remplacer par des composants src/ui/) : les noms de classes ci-dessous sont ceux utilisés par les vues. */
+textarea { display: block; width: 100%; min-height: 120px; border: 1px solid #9bae9f; border-radius: 6px; padding: 10px 12px; background: white; color: var(--ink); margin-top: 7px; font: inherit; line-height: 1.5; resize: vertical; }
+.field ~ .field, .field-pair ~ .field, .field ~ .field-pair, .field-pair ~ .field-pair { margin-top: 20px; }
+.field-pair .field ~ .field { margin-top: 0; }
+.field label { display: block; }
+.field .help { margin: 4px 0 0; }
+.field-error { color: var(--error); font-size: 0.85rem; margin: 6px 0 0; font-weight: 550; }
+[aria-invalid="true"] { border-color: var(--error); border-width: 2px; }
+.field.check label { display: flex; align-items: center; gap: 10px; min-height: 46px; margin-top: 29px; }
+.field.check input { width: 22px; min-height: 22px; margin: 0; }
+.content-section { margin-top: 40px; }
+.section-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 20px; }
+.section-heading h2 { margin: 0; }
+.stack { display: grid; gap: 16px; }
+.note, .doc-row { background: white; border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; }
+.note h3 { margin: 0 0 4px; font-size: 1.05rem; }
+.meta { font-size: 0.82rem; color: var(--muted); margin: 2px 0; overflow-wrap: anywhere; }
+.note-body { white-space: pre-wrap; overflow-wrap: anywhere; margin: 14px 0 0; }
+dd.note-body { margin: 0; }
+.follow-up { margin-top: 18px; }
+.follow-up fieldset { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px 16px; margin: 0; background: #f8faf7; }
+.follow-up legend { font-size: 0.85rem; font-weight: 600; padding: 0 6px; }
+.follow-up .button { margin-top: 14px; }
+.badge.todo { background: #fbefd6; color: #6b4511; }
+.doc-row { display: grid; grid-template-columns: minmax(180px, 1.4fr) 1fr 1fr; gap: 24px; align-items: center; font-size: 0.9rem; }
+.doc-row > * { min-width: 0; overflow-wrap: anywhere; }
+.detail-grid.single { display: block; }
+.builder { list-style: none; margin: 0 0 20px; padding: 0; display: grid; gap: 20px; }
+.builder-field { border: 1px solid var(--line); border-radius: 10px; padding: 20px; background: #fbfcfa; }
+.builder-field h3 { margin: 0 0 12px; font-size: 0.95rem; }
+.builder-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.implicit-submit { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.retire { margin-top: 24px; }
+.checking [data-case-id], .checking [data-requires-supervisor] { visibility: hidden; }
+@media (max-width: 760px) {
+  .section-heading { flex-direction: column; align-items: flex-start; }
+  .note, .doc-row { padding: 18px; }
+  .doc-row { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .builder-actions .button { flex: 1 1 40%; }
+}

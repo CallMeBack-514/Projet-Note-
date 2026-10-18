@@ -24,7 +24,7 @@ beforeEach(async () => {
   }
 });
 const create = (who = "a", name = "Personne fictive", other = {}) =>
-  createRecord(env.DB, actors[who], { name, service: "Logement", ...other });
+  createRecord(env.DB, actors[who], { name, ...other });
 const count = async (table: string) =>
   env.DB.prepare(`SELECT COUNT(*) AS n FROM ${table}`).first<number>("n");
 describe("Périmètre réel et transferts atomiques", () => {
@@ -132,26 +132,28 @@ describe("Périmètre réel et transferts atomiques", () => {
       .bind(stale.sessionId)
       .run();
     await expect(
-      createRecord(env.DB, stale, { name: "Non", service: "Non" }),
+      createRecord(env.DB, stale, { name: "Non" }),
     ).rejects.toBeDefined();
   });
-  it("ne révèle pas les autres dossiers d’une même personne", async () => {
+  it("réutilise le dossier existant d’une personne sans créer de deuxième dossier ni révéler les autres", async () => {
     const first = await create();
     const person = (await record(env.DB, actors.a, first)).client_id;
-    const second = await create("a", "", {
-      client_id: person,
-      service: "Alimentation",
-    });
+    expect(await create("a", "", { client_id: person })).toBe(first);
+    expect(await count("cases")).toBe(1);
+    await expect(
+      env.DB.prepare(
+        "INSERT INTO cases(id,organisation_id,client_id,owner_id,last_actor_id,last_session_id,last_operation_id) VALUES('x','o1',?,'a','a',?,'op-x')",
+      )
+        .bind(person, actors.a.sessionId)
+        .run(),
+    ).rejects.toBeDefined();
     await transfer(env.DB, actors.a, first, "b", 1);
-    expect((await listing(env.DB, actors.a)).rows.map((r) => r.id)).toEqual([
-      second,
-    ]);
-    expect(await accessCheck(env.DB, actors.a, [first, second])).toEqual([
-      second,
-    ]);
-    await expect(create("c", "", { client_id: person })).rejects.toMatchObject({
-      status: 404,
-    });
+    expect((await listing(env.DB, actors.a)).rows).toEqual([]);
+    expect(await accessCheck(env.DB, actors.a, [first])).toEqual([]);
+    await expect(create("a", "", { client_id: person })).rejects.toMatchObject({ status: 404 });
+    await expect(create("c", "", { client_id: person })).rejects.toMatchObject({ status: 404 });
+    expect(await create("b", "", { client_id: person })).toBe(first);
+    expect(await count("clients")).toBe(1);
   });
   it("préserve les contraintes et l’immutabilité des audits", async () => {
     const id = await create();
@@ -185,7 +187,6 @@ describe("Parcours HTTP et confidentialité", () => {
   it("crée par HTTP et retrouve les données après reconnexion", async () => {
     const res = await request("/dossiers", cookies.a, {
       name: "Usager fictif",
-      service: "Soutien",
     });
     expect(res.status).toBe(303);
     const fresh = await login("a");
@@ -196,16 +197,14 @@ describe("Parcours HTTP et confidentialité", () => {
   });
   it("valide champs, attribution falsifiée, organisme et CSRF", async () => {
     for (const data of [
-      { name: "", service: "x" },
-      { name: "x", service: "" },
-      { name: "x", service: "x", email: "invalide" },
+      { name: "" },
+      { name: "x", email: "invalide" },
     ] satisfies Record<string, string>[] as Record<string, string>[])
       expect((await request("/dossiers", cookies.a, data)).status).toBe(400);
     expect(
       (
         await request("/dossiers", cookies.a, {
           name: "x",
-          service: "x",
           owner_id: "b",
         })
       ).status,
@@ -214,7 +213,6 @@ describe("Parcours HTTP et confidentialité", () => {
       (
         await request("/dossiers", cookies.a, {
           name: "x",
-          service: "x",
           organisation_id: "o2",
         })
       ).status,
@@ -228,52 +226,27 @@ describe("Parcours HTTP et confidentialité", () => {
             Origin: "https://hostile.example",
             "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: "name=x&service=x",
+          body: "name=x",
         })
       ).status,
     ).toBe(403);
     expect(await count("clients")).toBe(0);
   });
-  it("protège la sélection de personne et un formulaire conservé après transfert", async () => {
+  it("protège la sélection de personne et les anciennes routes de duplication", async () => {
     const id = await create();
     const person = (await record(env.DB, actors.a, id)).client_id;
-    expect(
-      (await request("/dossiers/nouveau?source=" + id, cookies.b)).status,
-    ).toBe(404);
-    expect(
-      (
-        await request("/dossiers", cookies.a, {
-          client_id: person,
-          service: "x",
-        })
-      ).status,
-    ).toBe(404);
-    expect(
-      (
-        await request("/dossiers", cookies.a, {
-          client_id: person,
-          source: id,
-          service: "Autre suivi",
-        })
-      ).status,
-    ).toBe(303);
+    expect((await request("/dossiers/nouveau?source=" + id, cookies.b)).status).toBe(404);
+    const dup = await request("/dossiers", cookies.a, { client_id: person });
+    expect(dup.status).toBe(303);
+    expect(dup.headers.get("location")).toBe("/dossiers/" + id);
+    const old = await request("/dossiers/nouveau?source=" + id, cookies.a);
+    expect(old.status).toBe(303);
+    expect(old.headers.get("location")).toBe("/dossiers/" + id);
+    expect(await count("cases")).toBe(1);
     await transfer(env.DB, actors.s1, id, "c", 1);
+    expect((await request("/dossiers", cookies.a, { client_id: person })).status).toBe(404);
     expect(
-      (
-        await request("/dossiers", cookies.a, {
-          client_id: person,
-          source: id,
-          service: "x",
-        })
-      ).status,
-    ).toBe(404);
-    expect(
-      (
-        await request("/dossiers/" + id + "/transfert", cookies.a, {
-          owner_id: "b",
-          version: "1",
-        })
-      ).status,
+      (await request("/dossiers/" + id + "/transfert", cookies.a, { owner_id: "b", version: "1" })).status,
     ).toBe(404);
   });
   it("journalise seulement les lectures réussies, sans contenu personnel", async () => {
@@ -302,7 +275,8 @@ describe("Parcours HTTP et confidentialité", () => {
       "/dossiers",
       "/dossiers/" + id,
       "/dossiers/" + id + "/transfert",
-      "/dossiers/nouveau?source=" + id,
+      "/dossiers/" + id + "/notes/nouvelle",
+      "/dossiers/" + id + "/documents/nouveau",
     ]) {
       const res = await request(path, cookies.a);
       expect(res.status).toBe(503);
@@ -313,13 +287,13 @@ describe("Parcours HTTP et confidentialité", () => {
     const id = await create();
     const n = await count("audit_events");
     const res = await request("/acces", cookies.a, { "ids[]": id });
-    expect(await res.json()).toEqual({ allowed: [id] });
+    expect(await res.json()).toEqual({ supervisor: false, allowed: [id] });
     expect(res.headers.get("cache-control")).toContain("no-store");
     expect(await count("audit_events")).toBe(n);
     await transfer(env.DB, actors.s1, id, "b", 1);
     expect(
       await (await request("/acces", cookies.a, { "ids[]": id })).json(),
-    ).toEqual({ allowed: [] });
+    ).toEqual({ supervisor: false, allowed: [] });
   });
   it("refuse un compte sans profil métier même avec une session valide", async () => {
     await env.DB.prepare("DELETE FROM profiles WHERE user_id=?")
@@ -341,7 +315,7 @@ describe('Scénarios complémentaires du premier parcours', () => {
     expect(new Set([...first.rows,...second.rows].map(r=>r.id)).size).toBe(26);
   });
   it('permet au superviseur de créer pour une autre équipe puis reprendre un compte désactivé',async()=>{
-    const res=await request('/dossiers',cookies.s1,{name:'Suivi fictif',service:'Accueil',owner_id:'c'});expect(res.status).toBe(303);
+    const res=await request('/dossiers',cookies.s1,{name:'Suivi fictif',owner_id:'c'});expect(res.status).toBe(303);
     const id=res.headers.get('location')!.split('/').pop()!;
     expect((await record(env.DB,actors.c,id)).owner_id).toBe('c');
     await env.DB.prepare('UPDATE profiles SET active=0 WHERE user_id=?').bind('c').run();

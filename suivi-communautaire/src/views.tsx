@@ -6,6 +6,7 @@ import { Button, LinkButton } from "./ui/button";
 import { cn } from "./ui/cn";
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLegend, FieldSet, Input, Label, NativeSelect, Textarea } from "./ui/form";
 import { Icon } from "./ui/icons";
+import { limits } from "./limits";
 import { Alert, Badge, Card, CardContent, CardDescription, CardHeader, CardTitle, Empty, EmptyDescription, EmptyHeader, EmptyTitle } from "./ui/surface";
 
 // Logo vectorisé à partir du visuel fourni (public/logo.svg) ; la couleur suit le texte courant.
@@ -16,6 +17,15 @@ function BrandMark({ class: className }: { class?: string }) {
     <svg viewBox="0 0 205.25 198.5" width="32" height="32" aria-hidden="true" class={cn("size-8 shrink-0", className)}>
       <path d={brandMarkPath} fill="currentColor" fill-rule="evenodd" />
     </svg>
+  );
+}
+// Logo + nom : le nom reprend la police des titres (EB Garamond) pour former un ensemble cohérent.
+function Logo({ class: className, markClass }: { class?: string; markClass?: string }) {
+  return (
+    <span class={cn("flex items-center gap-3", className)}>
+      <BrandMark class={markClass} />
+      <span class="font-serif text-4xl leading-none tracking-tight">Superhero</span>
+    </span>
   );
 }
 const sideFocus = "focus-visible:ring-[3px] focus-visible:ring-cream/70";
@@ -32,7 +42,7 @@ export function Layout({
   title: string;
   actor?: Actor;
   children: Child;
-  section?: "dossiers" | "modeles";
+  section?: "dossiers" | "modeles" | "audit";
 }) {
   return (
     <>
@@ -42,7 +52,7 @@ export function Layout({
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="color-scheme" content="light" />
-          <title>{title} · Suivi communautaire</title>
+          <title>{title} · Superhero</title>
           <link rel="preload" href="/fonts/figtree-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
           <link rel="stylesheet" href="/styles.css" />
           <script src="/app.js" defer />
@@ -58,13 +68,8 @@ export function Layout({
             <div class="min-h-dvh md:grid md:grid-cols-[17rem_minmax(0,1fr)]">
               <aside class="flex flex-wrap items-center justify-between gap-x-4 gap-y-3 bg-forest px-4 py-3 text-cream md:sticky md:top-0 md:h-dvh md:flex-col md:flex-nowrap md:items-stretch md:justify-start md:gap-0 md:overflow-y-auto md:px-5 md:py-7">
                 <a class={cn("flex items-center gap-3 rounded-lg outline-none", sideFocus)} href="/dossiers">
-                  <BrandMark class="size-9" />
-                  <span class="text-xl leading-tight font-bold tracking-tight">
-                    Suivi
-                    <br class="hidden md:block" /> communautaire
-                  </span>
+                  <Logo markClass="size-10" />
                 </a>
-                <p class="mt-4 hidden border-t-2 border-cream/20 pt-4 text-sm leading-snug text-cream/75 md:block">{actor.organisation_name}</p>
                 <nav aria-label="Navigation principale" class="order-last flex w-full gap-1.5 md:order-none md:mt-8 md:flex-col">
                   <a
                     class={cn(navLink, section === "dossiers" ? "bg-card text-foreground" : "text-cream/85 hover:bg-cream/10 hover:text-cream")}
@@ -82,6 +87,16 @@ export function Layout({
                     >
                       <Icon name="clipboard-list" class="size-5" />
                       Modèles
+                    </a>
+                  )}
+                  {actor.role === "superviseur" && (
+                    <a
+                      class={cn(navLink, section === "audit" ? "bg-card text-foreground" : "text-cream/85 hover:bg-cream/10 hover:text-cream")}
+                      aria-current={section === "audit" ? "page" : undefined}
+                      href="/audit"
+                    >
+                      <Icon name="file-text" class="size-5" />
+                      Journal des accès
                     </a>
                   )}
                 </nav>
@@ -114,10 +129,7 @@ export function Layout({
           ) : (
             <main id="contenu" class="mx-auto grid min-h-dvh max-w-6xl content-center gap-10 px-4 py-10 md:grid-cols-2 md:items-center md:gap-16 md:px-6">
               <div class="flex flex-col gap-6">
-                <span class="flex items-center gap-2.5 text-lg font-bold tracking-tight">
-                  <BrandMark />
-                  Suivi communautaire
-                </span>
+                <Logo markClass="size-11" />
                 <h1 class="text-6xl leading-[0.95] tracking-[-0.03em] md:text-8xl">
                   Retrouver le fil
                   <br />
@@ -386,11 +398,11 @@ export function List({
             </div>
             {rows.map((row) => (
               <article
-                class="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 border-b-2 border-sand px-5 py-4 transition-colors last:border-b-0 hover:bg-muted md:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_6rem] md:py-5"
+                class="group relative grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 border-b-2 border-sand px-5 py-4 transition-colors last:border-b-0 hover:bg-muted has-[a:focus-visible]:bg-muted md:grid-cols-[minmax(0,2fr)_minmax(0,1.3fr)_6rem] md:py-5"
                 data-case-id={row.id}
               >
                 <div class="min-w-0">
-                  <a class="record-name text-lg font-semibold break-words underline-offset-4 hover:underline" href={"/dossiers/" + row.id}>
+                  <a class="record-name font-serif text-2xl leading-tight break-words underline-offset-4 outline-none group-hover:underline after:absolute after:inset-0 after:rounded-2xl focus-visible:after:ring-[3px] focus-visible:after:ring-inset focus-visible:after:ring-ring/60" href={"/dossiers/" + row.id}>
                     {row.name}
                   </a>
                   <span class="block text-xs tracking-wider text-muted-foreground tabular-nums">{row.id.slice(0, 8).toUpperCase()}</span>
@@ -500,6 +512,52 @@ export function NewRecord({
           <FormActions>
             <Button size="lg">Créer le dossier</Button>
             <CancelLink href="/dossiers" />
+          </FormActions>
+        </FormCard>
+      </div>
+    </Layout>
+  );
+}
+export function EditRecord({
+  actor,
+  row,
+  values,
+  errors,
+  error,
+}: {
+  actor: Actor;
+  row: RecordRow;
+  values?: Record<string, string>;
+  errors?: Record<string, string>;
+  error?: string;
+}) {
+  const v = values ?? { name: row.name, email: row.email, phone: row.phone, address: row.address, date_of_birth: row.date_of_birth };
+  return (
+    <Layout title="Modifier les renseignements" actor={actor}>
+      <BackLink href={"/dossiers/" + row.id}>Retour au dossier</BackLink>
+      <AccessStatus />
+      <div data-case-id={row.id}>
+        <PageHeading title="Modifier les renseignements" description={row.name} />
+        {error && <Notice message={error} error />}
+        <FormCard method="post" action={"/dossiers/" + row.id + "/modifier"}>
+          <p class="text-sm text-muted-foreground">Les champs marqués d’un astérisque (*) sont obligatoires.</p>
+          <FieldSet>
+            <FieldLegend>Usager</FieldLegend>
+            <FieldGroup>
+              <TextField name="name" label="Nom complet" value={v.name} errors={errors} required maxlength={limits.name} />
+              <div class="grid gap-6 md:grid-cols-2">
+                <TextField name="email" label="Courriel" type="email" value={v.email} errors={errors} maxlength={limits.email} autocomplete="email" />
+                <TextField name="phone" label="Téléphone" type="tel" value={v.phone} errors={errors} maxlength={limits.phone} autocomplete="tel" />
+              </div>
+              <TextField name="address" label="Adresse" value={v.address} errors={errors} maxlength={limits.address} autocomplete="street-address" />
+              <div class="md:max-w-xs">
+                <TextField name="date_of_birth" label="Date de naissance" type="date" value={v.date_of_birth} errors={errors} autocomplete="bday" />
+              </div>
+            </FieldGroup>
+          </FieldSet>
+          <FormActions>
+            <Button size="lg">Enregistrer</Button>
+            <CancelLink href={"/dossiers/" + row.id} />
           </FormActions>
         </FormCard>
       </div>
