@@ -1,0 +1,270 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-18T04:02:01.879800+00:00",
+  "title": "Design System: Suivi communautaire",
+  "extensions": {
+    "colorMeta": {
+      "pine": {
+        "role": "primary",
+        "displayName": "Pin"
+      },
+      "pine-dark": {
+        "role": "primary",
+        "displayName": "Pin profond"
+      },
+      "sage": {
+        "role": "primary",
+        "displayName": "Sauge"
+      },
+      "linen": {
+        "role": "neutral",
+        "displayName": "Lin"
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papier"
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Encre"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Texte secondaire"
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Séparateur"
+      },
+      "error": {
+        "displayName": "Texte d’erreur"
+      },
+      "focus": {
+        "displayName": "Focus ocre"
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Bordure de champ"
+      },
+      "pressed": {
+        "role": "primary",
+        "displayName": "Sauge de pression"
+      },
+      "nav-current": {
+        "role": "primary",
+        "displayName": "Navigation courante"
+      },
+      "nav-hover": {
+        "role": "primary",
+        "displayName": "Survol de navigation"
+      },
+      "rail-text": {
+        "role": "neutral",
+        "displayName": "Texte du rail"
+      },
+      "rail-secondary": {
+        "role": "neutral",
+        "displayName": "Texte secondaire du rail"
+      },
+      "rail-note": {
+        "role": "neutral",
+        "displayName": "Note du rail"
+      },
+      "rail-divider": {
+        "role": "neutral",
+        "displayName": "Séparateur du rail"
+      },
+      "logout-text": {
+        "role": "neutral",
+        "displayName": "Déconnexion"
+      },
+      "table-heading": {
+        "role": "neutral",
+        "displayName": "En-tête de liste"
+      },
+      "row-hover": {
+        "role": "neutral",
+        "displayName": "Survol de ligne"
+      },
+      "notice-border": {
+        "displayName": "Bordure de statut"
+      },
+      "notice-bg": {
+        "displayName": "Fond de statut"
+      },
+      "error-border": {
+        "displayName": "Bordure d’erreur"
+      },
+      "error-bg": {
+        "displayName": "Fond d’erreur"
+      },
+      "selection": {
+        "role": "neutral",
+        "displayName": "Sélection de texte"
+      },
+      "scrollbar": {
+        "role": "neutral",
+        "displayName": "Poignée de défilement"
+      },
+      "intro-text": {
+        "role": "neutral",
+        "displayName": "Texte d’introduction"
+      },
+      "intro-secondary": {
+        "role": "neutral",
+        "displayName": "Texte secondaire d’introduction"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Introduction",
+        "purpose": "Titre de connexion sur ordinateur."
+      },
+      "headline": {
+        "displayName": "Titre de page",
+        "purpose": "Titre principal de travail."
+      },
+      "headline-mobile": {
+        "displayName": "Titre mobile",
+        "purpose": "Titre principal à 760px et moins."
+      },
+      "title": {
+        "displayName": "Titre de section",
+        "purpose": "Groupes de renseignements et formulaires."
+      },
+      "body": {
+        "displayName": "Texte courant",
+        "purpose": "Lecture générale et valeurs des champs."
+      },
+      "label": {
+        "displayName": "Libellé",
+        "purpose": "Étiquettes de champs visibles."
+      },
+      "control": {
+        "displayName": "Action",
+        "purpose": "Texte des deux variantes de bouton."
+      },
+      "badge": {
+        "displayName": "État",
+        "purpose": "Étiquette Ouvert."
+      },
+      "reference": {
+        "displayName": "Référence",
+        "purpose": "Identifiant du dossier avec chiffres tabulaires."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "button-color-transition",
+        "value": "background-color 160ms ease, color 160ms ease",
+        "purpose": "Survol et pression des boutons; transitions supprimées avec prefers-reduced-motion: reduce."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-desktop",
+        "value": "1100px"
+      },
+      {
+        "name": "mobile",
+        "value": "760px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Bouton principal",
+      "kind": "button",
+      "description": "Action principale, avec survol, pression, focus et désactivation.",
+      "html": "<button class=\"ds-button\" type=\"button\">Créer le dossier</button>",
+      "css": ".ds-button{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:var(--radius,8px);text-decoration:none;border:1px solid transparent;font-weight:600;font-size:.92rem;cursor:pointer;white-space:nowrap;transition:background-color 160ms ease,color 160ms ease;}.ds-button{background:var(--pine,#234c40);color:white;} .ds-button:hover{background:var(--pine-dark,#183b30);text-decoration:none;} .ds-button:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;} .ds-button:active{background:#c8dacb;color:var(--pine-dark,#183b30);} .ds-button:disabled{opacity:.55;cursor:not-allowed;} @media(prefers-reduced-motion:reduce){.ds-button{transition:none;}}",
+      "refersTo": "button-primary"
+    },
+    {
+      "name": "Bouton secondaire",
+      "kind": "button",
+      "description": "Action secondaire bordée, avec les mêmes états interactifs.",
+      "html": "<button class=\"ds-button\" type=\"button\">Rechercher</button>",
+      "css": ".ds-button{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 18px;border-radius:var(--radius,8px);text-decoration:none;border:1px solid transparent;font-weight:600;font-size:.92rem;cursor:pointer;white-space:nowrap;transition:background-color 160ms ease,color 160ms ease;}.ds-button{border-color:#9bae9f;background:transparent;color:var(--pine,#234c40);} .ds-button:hover{background:var(--sage,#e3ece5);text-decoration:none;} .ds-button:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;} .ds-button:active{background:#c8dacb;color:var(--pine-dark,#183b30);} .ds-button:disabled{opacity:.55;cursor:not-allowed;} @media(prefers-reduced-motion:reduce){.ds-button{transition:none;}}",
+      "refersTo": "button-secondary"
+    },
+    {
+      "name": "Champ texte",
+      "kind": "input",
+      "description": "Champ natif avec libellé visible et focus commun.",
+      "html": "<label class=\"ds-label\">Service *<input class=\"ds-field\" required placeholder=\"Ex. : Accompagnement au logement\"></label>",
+      "css": ".ds-label{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:block;font-size:.9rem;font-weight:550;} .ds-field{font-family:inherit;font-size:16px;line-height:1.5;display:block;width:100%;min-height:46px;border:1px solid #9bae9f;border-radius:6px;padding:10px 12px;background:white;color:var(--ink,#233b32);margin-top:7px;caret-color:var(--pine,#234c40);} .ds-field::placeholder{color:var(--muted,#5a6b62);opacity:1;} .ds-field:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;}",
+      "refersTo": "input"
+    },
+    {
+      "name": "Navigation courante",
+      "kind": "nav",
+      "description": "Lien courant sur le fond pin du rail.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Navigation principale\"><a class=\"ds-nav-link\" href=\"#dossiers\" aria-current=\"page\">Dossiers</a></nav>",
+      "css": ".ds-nav{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);background:var(--pine,#234c40);padding:24px;} .ds-nav-link{display:block;background:#365e4e;color:#fff;border-radius:6px;padding:12px 16px;font-weight:600;text-decoration:none;} .ds-nav-link:hover{background:#416c59;} .ds-nav-link:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;}",
+      "refersTo": "nav-current"
+    },
+    {
+      "name": "État Ouvert",
+      "kind": "chip",
+      "description": "Étiquette informative statique, sans états interactifs.",
+      "html": "<span class=\"ds-badge\">Ouvert</span>",
+      "css": ".ds-badge{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:inline-flex;align-items:center;justify-content:center;border-radius:4px;padding:3px 8px;background:var(--sage,#e3ece5);color:var(--pine,#234c40);font-size:.75rem;font-weight:600;justify-self:start;}",
+      "refersTo": "badge"
+    },
+    {
+      "name": "Surface de formulaire",
+      "kind": "card",
+      "description": "Conteneur plat bordé et section de formulaire présente dans la création.",
+      "html": "<section class=\"ds-form\"><h2 class=\"ds-title\">Suivi</h2><label class=\"ds-label\">Service *<input class=\"ds-field\" required placeholder=\"Ex. : Accompagnement au logement\"></label></section>",
+      "css": ".ds-form{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);max-width:740px;background:white;border:1px solid var(--line,#d5dfd7);border-radius:12px;padding:32px;} .ds-title{margin:0 0 24px;font-size:1.16rem;line-height:1.35;font-weight:650;} .ds-label{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:block;font-size:.9rem;font-weight:550;} .ds-field{font-family:inherit;font-size:16px;line-height:1.5;display:block;width:100%;min-height:46px;border:1px solid #9bae9f;border-radius:6px;padding:10px 12px;background:white;color:var(--ink,#233b32);margin-top:7px;caret-color:var(--pine,#234c40);} .ds-field::placeholder{color:var(--muted,#5a6b62);opacity:1;} .ds-field:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;} @media(max-width:760px){.ds-form{padding:22px 18px;}}",
+      "refersTo": "record-form"
+    },
+    {
+      "name": "Ligne de dossier",
+      "kind": "custom",
+      "description": "Exemple fictif; nom navigable, colonnes réorganisées sur téléphone.",
+      "html": "<article class=\"ds-row\"><div><a class=\"ds-link ds-name\" href=\"#dossier\">Camille Exemple</a><span class=\"ds-reference\">DEMO0001</span></div><div><span class=\"ds-mobile-label\">Service</span>Accompagnement au logement</div><div><span class=\"ds-mobile-label\">Responsable</span>Alex Exemple</div><span class=\"ds-badge\">Ouvert</span></article>",
+      "css": ".ds-row{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:grid;grid-template-columns:minmax(180px,1.4fr) minmax(130px,1.2fr) minmax(120px,1fr) 66px;gap:24px;padding:18px 28px;align-items:center;border-top:1px solid var(--line,#d5dfd7);font-size:.9rem;min-height:100px;background:var(--paper,#fff);} .ds-row>div{min-width:0;overflow-wrap:anywhere;} .ds-row:hover{background:#f8faf7;} .ds-name{font-weight:650;font-size:1rem;display:inline-block;padding:3px 0;} .ds-reference{display:block;color:var(--muted,#5a6b62);font-size:.73rem;letter-spacing:.035em;margin-top:4px;font-variant-numeric:tabular-nums;} .ds-mobile-label{display:none;} .ds-link{color:var(--pine,#234c40);text-underline-offset:4px;} .ds-link:hover{text-decoration-thickness:2px;} .ds-link:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;}.ds-badge{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:inline-flex;align-items:center;justify-content:center;border-radius:4px;padding:3px 8px;background:var(--sage,#e3ece5);color:var(--pine,#234c40);font-size:.75rem;font-weight:600;justify-self:start;} @media(max-width:1100px){.ds-row{gap:14px;padding-left:20px;padding-right:20px;grid-template-columns:minmax(130px,1.3fr) minmax(110px,1fr) minmax(100px,1fr) 58px;}} @media(max-width:760px){.ds-row{grid-template-columns:minmax(0,1fr) auto;gap:14px;padding:20px 18px;align-items:start;} .ds-row>div:first-child{grid-column:1;} .ds-row>div:nth-child(2){grid-column:1;grid-row:2;} .ds-row>div:nth-child(3){grid-column:1;grid-row:3;} .ds-row>.ds-badge{grid-column:2;grid-row:1;} .ds-mobile-label{display:block;color:var(--muted,#5a6b62);font-size:.73rem;margin-bottom:3px;} .ds-reference{font-size:.7rem;}}"
+    },
+    {
+      "name": "Messages de statut et d’erreur",
+      "kind": "custom",
+      "description": "Deux palettes observées, accompagnées des rôles status et alert.",
+      "html": "<div class=\"ds-notice\" role=\"status\">Le dossier a été transféré. Le nouvel intervenant en est maintenant responsable.</div><div class=\"ds-notice ds-error\" role=\"alert\">Impossible de confirmer le transfert.</div>",
+      "css": ".ds-notice{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:flex;justify-content:space-between;gap:16px;padding:16px 20px;border:1px solid #adc6b3;border-radius:8px;background:#edf5ee;margin-bottom:24px;font-size:.9rem;} .ds-notice.ds-error{border-color:#ddaaa0;background:#fcf0eb;color:var(--error,#8b2b29);} @media(max-width:760px){.ds-notice{flex-direction:column;}}",
+      "refersTo": "notice"
+    },
+    {
+      "name": "Relais du dossier",
+      "kind": "custom",
+      "description": "Extrait statique du formulaire de transfert avec responsable actuel et destinataire.",
+      "html": "<div class=\"ds-handoff\"><div><span class=\"ds-field-label\">Responsable actuel</span><strong>Alex Exemple</strong></div><div><label class=\"ds-label\">Nouvel intervenant responsable *<select class=\"ds-field\" required><option value=\"\">Choisir un intervenant</option><option>Sam Exemple</option></select></label></div></div><p class=\"ds-transfer-note\">Dès la confirmation, l’ancien intervenant perd l’accès à ce dossier. Le nouvel intervenant et les superviseurs de l’organisme pourront le consulter.</p>",
+      "css": ".ds-handoff{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:grid;gap:28px;} .ds-handoff>div:first-child{padding-bottom:24px;border-bottom:1px solid var(--line,#d5dfd7);} .ds-field-label{color:var(--muted,#5a6b62);font-size:.83rem;display:block;margin-bottom:5px;} .ds-transfer-note{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);font-size:.9rem;color:var(--muted,#5a6b62);margin:26px 0 0;max-width:70ch;} .ds-label{font-family:system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", sans-serif;font-size:16px;line-height:1.5;color:var(--ink,#233b32);display:block;font-size:.9rem;font-weight:550;} .ds-field{font-family:inherit;font-size:16px;line-height:1.5;display:block;width:100%;min-height:46px;border:1px solid #9bae9f;border-radius:6px;padding:10px 12px;background:white;color:var(--ink,#233b32);margin-top:7px;caret-color:var(--pine,#234c40);} .ds-field::placeholder{color:var(--muted,#5a6b62);opacity:1;} .ds-field:focus-visible{outline:3px solid var(--focus,#9b5b14);outline-offset:4px;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "L’accueil communautaire",
+    "overview": "Le système reprend les repères calmes d’un lieu d’accueil : pin profond, sauge pâle et fond lin. La typographie système et les contrôles familiers donnent la priorité à la lecture et aux gestes de travail. Les surfaces blanches et les séparateurs fins organisent l’information sans ajouter de décor.\n\nLa personnalité reste sobre et accessible, avec des angles doucement arrondis et des espaces réguliers. Le système livré utilise un petit signe SVG géométrique dans la marque; aucune image raster ni police externe n’est livrée.",
+    "keyCharacteristics": [
+      "Palette pin, sauge et lin; états fonctionnels différenciés.",
+      "Typographie système, titres compacts et libellés explicites.",
+      "Surfaces plates, bordures fines et coins modérément arrondis.",
+      "Focus visible et composition adaptée au téléphone."
+    ],
+    "rules": [],
+    "dos": [
+      "Do conserver les tokens observés et les états associés dans la feuille de styles.",
+      "Do garder les libellés visibles, les champs natifs et le contour de focus sur les éléments interactifs.",
+      "Do préserver les séparateurs et la hiérarchie typographique dans les listes et formulaires.",
+      "Do adapter les colonnes au téléphone et autoriser le retour à la ligne des contenus longs."
+    ],
+    "donts": [
+      "Don’t remplacer la police système ou la palette choisie sans décision explicite.",
+      "Don’t ajouter d’ombres ou de textures à ce système plat par défaut.",
+      "Don’t transformer le badge d’état statique en contrôle interactif sans concevoir son comportement.",
+      "Don’t présenter une couleur ou un état absent des CSS comme un token déjà livré."
+    ]
+  }
+}

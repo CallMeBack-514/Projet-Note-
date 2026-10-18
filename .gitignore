@@ -1,0 +1,17 @@
+.DS_Store
+
+# Local tooling and unrelated workspace research.
+/.agents/
+/research/
+
+# Secrets, dependencies, generated builds and local databases.
+.env*
+!.env.example
+.dev.vars*
+.local/
+node_modules/
+.cloudflare/
+.wrangler/
+dist/
+playwright-report/
+test-results/
