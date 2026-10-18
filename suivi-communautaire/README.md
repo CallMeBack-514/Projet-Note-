@@ -8,13 +8,13 @@ Node.js 24 recommandé, npm et Google Chrome pour les tests navigateur. Depuis c
 
 ```sh
 npm ci
-npm run setup
-npm run db:migrate
-npm run demo
+npm run demo:setup
 npm run dev
 ```
 
 Ouvrir [l’application locale](http://localhost:5173). `setup` génère un secret dans `.dev.vars`; `demo` génère un mot de passe aléatoire et écrit les identifiants dans `.local/credentials.json`, accessible au seul utilisateur du système. Ces fichiers et la base sont ignorés par Git. Ne pas copier les comptes de démonstration dans un environnement réel.
+
+`demo:setup` enchaîne `setup`, `db:migrate` et `demo`. Le jeu versionné dans [scripts/demo-data.json](scripts/demo-data.json) ajoute huit dossiers fictifs : trois pour Émilie, deux pour Malik, deux pour Sofia et un pour Noah. Il comprend des coordonnées facultatives vides et des adresses `.example`. Chaque personne possède un dossier dans ce jeu, compatible avec le futur parcours centré sur la personne. Les notes, documents et statuts Actif/Inactif restent planifiés dans OpenSpec et ne sont pas encore des données disponibles.
 
 Le port 5173 et l’origine `http://localhost:5173` sont intentionnellement fixes. Utiliser `localhost`, pas `127.0.0.1`, pour respecter les contrôles d’origine. Les migrations et le provisioning ciblent explicitement **D1 local**, sous `.cloudflare/state`, avec un UUID réservé au développement. Aucun compte Cloudflare n’est nécessaire.
 
@@ -30,6 +30,8 @@ Le port 5173 et l’origine `http://localhost:5173` sont intentionnellement fixe
 
 Le provisioning est un script local, sans route web. Il utilise le hachage de Better Auth. Le relancer conserve comptes, mots de passe, dossiers et désactivations, sans doublon. Garder `.local/credentials.json` avec cette base : le supprimer ne réinitialise pas les mots de passe existants.
 
+Les dossiers sont créés avec les gardes SQL et l’audit habituels, sous des sessions temporaires des superviseurs fictifs supprimées dans le même batch. Une erreur annule le batch. Leurs dates d’ouverture sont fictives; leurs événements de création portent l’heure réelle du chargement. Les identifiants stables empêchent un second chargement de réattribuer un dossier transféré ou de dupliquer sa trace de création. Pour ajouter un exemple, ajouter un nouvel identifiant à `scripts/demo-data.json`, puis relancer `npm run demo`; modifier une entrée existante ne remplace pas les données de la base.
+
 Pour désactiver un compte fictif, par exemple Malik :
 
 ```sh
@@ -40,7 +42,7 @@ Ses sessions ne permettent plus aucun accès métier; ses dossiers restent attri
 
 ## Essayer les rôles
 
-1. Se connecter comme Émilie et créer un dossier. Le nom et le service sont requis; téléphone et courriel sont facultatifs.
+1. Se connecter comme Émilie (`a@demo.example`) : trois dossiers fictifs sont déjà disponibles, dont celui d’Anne Beaulieu. Pour en créer un autre, le nom et le service sont requis; téléphone et courriel sont facultatifs.
 2. Depuis la fiche, « Créer un autre dossier pour cet usager » réutilise la personne accessible. Il n’existe pas de recherche globale de personnes ni de détection des doublons entre dossiers invisibles.
 3. Ouvrir une fenêtre privée comme Alex. Ce superviseur voit tous les dossiers de Maison des liens, y compris ceux de l’équipe de Camille.
 4. Transférer un dossier à Sofia. Émilie perd immédiatement l’accès serveur; Sofia le gagne. Émilie conserve tout autre dossier qui lui est encore attribué, même pour la même personne.

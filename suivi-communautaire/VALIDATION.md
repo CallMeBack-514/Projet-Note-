@@ -42,3 +42,10 @@ Ce résultat concerne le premier parcours local avec des données fictives. Il n
 ## Clôture OpenSpec
 
 Le changement a été archivé le 18 octobre 2026 dans `openspec/changes/archive/2026-10-18-dossiers-attribution-et-transfert/`. Les 19 tâches sont terminées. Les quatre spécifications consolidées conservent leurs objectifs et leurs 18 exigences; `openspec validate --all --strict` réussit après archivage. Le conseil non bloquant de découper les changements dépassant dix exigences est conservé comme indication pour les prochains cycles.
+
+## Jeu de démonstration versionné — 18 octobre 2026
+
+- `npm test` : 27 tests réussis dans 4 fichiers, dont trois nouveaux tests de provisioning. Ils couvrent la connexion aux comptes fictifs, le périmètre des listes, l’audit de création, la suppression des sessions temporaires, la conservation des transferts/mots de passe/désactivations après relance et le rollback complet si l’audit échoue.
+- `npm run typecheck` : réussite.
+- `npm run demo:setup`, puis `npm run demo`, exécutés dans une copie temporaire sans base ni secrets, en réutilisant les dépendances installées du projet : réussite. Vérification via la CLI D1 locale : 2 organismes, 7 comptes, 8 personnes/dossiers, 8 événements de création et 0 session résiduelle après deux chargements. La base de travail existante n’a pas été modifiée.
+- Aucun changement de code UI ou de configuration de déploiement; les tests navigateur et le build n’ont pas été relancés pour cet ajout de fixtures. Aucun déploiement ni accès à une base distante.

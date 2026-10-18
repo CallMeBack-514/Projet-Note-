@@ -13,6 +13,7 @@
     "db:migrate": "cf d1 migrations apply 7e246701-f720-4ed4-9a21-3b5811778d30 --local --persist-to .cloudflare/state --dir migrations",
     "setup": "node scripts/setup.mjs",
     "demo": "node scripts/provision.mjs",
+    "demo:setup": "npm run setup && npm run db:migrate && npm run demo",
     "test:browser": "playwright test"
   },
   "keywords": [],

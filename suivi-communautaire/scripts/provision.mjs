@@ -34,6 +34,11 @@ else
     "Usage: npm run demo ou npm run demo -- disable <identifiant>",
   );
 const batch = ".local/provision-batch.json";
+// Keep the generated password available for a retry if provisioning fails.
+if (!existsSync(file))
+  writeFileSync(file, JSON.stringify(credentials, null, 2) + "\n", {
+    mode: 0o600,
+  });
 writeFileSync(batch, JSON.stringify(queries), { mode: 0o600 });
 try {
   const res = spawnSync(
@@ -55,14 +60,10 @@ try {
     console.error("Le provisioning a échoué. Vérifiez les migrations locales.");
     process.exitCode = 1;
   } else {
-    if (!existsSync(file))
-      writeFileSync(file, JSON.stringify(credentials, null, 2) + "\n", {
-        mode: 0o600,
-      });
     console.log(
       args.length
         ? "Compte désactivé."
-        : "Comptes fictifs prêts. Identifiants dans .local/credentials.json (local uniquement).",
+        : "Démonstration prête : 2 organismes, 7 comptes et 8 dossiers fictifs. Identifiants dans .local/credentials.json (local uniquement).",
     );
   }
 } finally {

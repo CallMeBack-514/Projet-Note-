@@ -1,0 +1,82 @@
+[
+  {
+    "id": "demo-logement",
+    "name": "Anne Beaulieu (fictif)",
+    "email": "anne@personnes.example",
+    "phone": "514-555-0101",
+    "service": "Accompagnement au logement",
+    "owner": "a",
+    "organisation": "o1",
+    "openedAt": "2026-09-02T14:00:00.000Z"
+  },
+  {
+    "id": "demo-emploi",
+    "name": "Jules Mercier (fictif)",
+    "email": "jules@personnes.example",
+    "phone": "514-555-0102",
+    "service": "Retour à l’emploi",
+    "owner": "a",
+    "organisation": "o1",
+    "openedAt": "2026-09-08T15:30:00.000Z"
+  },
+  {
+    "id": "demo-accueil",
+    "name": "Noémie Desrosiers (fictif)",
+    "email": "",
+    "phone": "",
+    "service": "Accueil et orientation",
+    "owner": "a",
+    "organisation": "o1",
+    "openedAt": "2026-09-12T13:00:00.000Z"
+  },
+  {
+    "id": "demo-alimentation",
+    "name": "Samir Bouchard (fictif)",
+    "email": "samir@personnes.example",
+    "phone": "514-555-0103",
+    "service": "Soutien alimentaire",
+    "owner": "b",
+    "organisation": "o1",
+    "openedAt": "2026-09-15T16:00:00.000Z"
+  },
+  {
+    "id": "demo-budget",
+    "name": "Léa Caron (fictif)",
+    "email": "",
+    "phone": "514-555-0104",
+    "service": "Accompagnement budgétaire",
+    "owner": "b",
+    "organisation": "o1",
+    "openedAt": "2026-09-18T14:30:00.000Z"
+  },
+  {
+    "id": "demo-proches",
+    "name": "Louise Pelletier (fictif)",
+    "email": "louise@personnes.example",
+    "phone": "",
+    "service": "Soutien aux proches",
+    "owner": "c",
+    "organisation": "o1",
+    "openedAt": "2026-09-22T17:00:00.000Z"
+  },
+  {
+    "id": "demo-demarches",
+    "name": "Thomas Lavoie (fictif)",
+    "email": "thomas@personnes.example",
+    "phone": "514-555-0105",
+    "service": "Aide aux démarches administratives",
+    "owner": "c",
+    "organisation": "o1",
+    "openedAt": "2026-09-25T13:30:00.000Z"
+  },
+  {
+    "id": "demo-autre-organisme",
+    "name": "Maya Gauthier (fictif)",
+    "email": "maya@personnes.example",
+    "phone": "514-555-0106",
+    "service": "Accueil et orientation",
+    "owner": "d",
+    "organisation": "o2",
+    "openedAt": "2026-10-01T14:00:00.000Z"
+  }
+]
